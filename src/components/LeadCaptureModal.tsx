@@ -21,7 +21,6 @@ const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({ isOpen, onClose, on
     try {
       await addLead(name, email);
       onSuccess();
-      onClose();
     } catch (err) {
       setError("Something went wrong. Please try again.");
     } finally {

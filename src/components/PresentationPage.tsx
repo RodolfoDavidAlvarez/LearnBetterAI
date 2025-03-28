@@ -119,8 +119,11 @@ const PresentationPage = () => {
       <LeadCaptureModal
         isOpen={showModal}
         onClose={() => {
-          setShowModal(false);
-          navigate("/"); // Only redirect to home if they close the modal without submitting
+          if (!hasAccess) {
+            // Only redirect if they haven't submitted the form
+            setShowModal(false);
+            navigate("/");
+          }
         }}
         onSuccess={handleLeadCaptureSuccess}
       />
