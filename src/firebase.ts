@@ -3,20 +3,20 @@ import { getAnalytics } from "firebase/analytics";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_FIREBASE_APP_ID,
-  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
+  apiKey: "AIzaSyC6j-xJu4TRb4eOocmFFFUimpIKSSp9xXM",
+  authDomain: "better-systems-ai.firebaseapp.com",
+  projectId: "better-systems-ai",
+  storageBucket: "better-systems-ai.firebasestorage.app",
+  messagingSenderId: "87944804705",
+  appId: "1:87944804705:web:f01dbf783bec65333cad20",
+  measurementId: "G-FXJVZJY9KS",
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
 // Initialize Analytics only in browser environment
-const analytics = typeof window !== "undefined" && process.env.NODE_ENV === "production" ? getAnalytics(app) : null;
+const analytics = typeof window !== "undefined" ? getAnalytics(app) : null;
 
 // Initialize Firestore
 const db = getFirestore(app);

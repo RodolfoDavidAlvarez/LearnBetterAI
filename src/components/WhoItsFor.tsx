@@ -67,6 +67,26 @@ const WhoItsFor = () => {
           ))}
         </div>
       </div>
+
+      {/* Social Media Button */}
+      <div className="mt-12 text-center">
+        <a
+          href="https://bettersystems.ai/founders-social"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center px-8 py-4 text-lg font-bold text-blue-600 bg-white hover:bg-gray-50 rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"
+            />
+          </svg>
+          Connect with Us on Social
+        </a>
+      </div>
     </section>
   );
 };

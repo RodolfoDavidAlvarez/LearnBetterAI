@@ -1,13 +1,43 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import LeadCaptureModal from "./LeadCaptureModal";
 
 const PresentationPage = () => {
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+  const [hasAccess, setHasAccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const handleViewGuide = () => {
-    window.open("https://drive.google.com/file/d/1vvFztYS03fYyifCl5OawqxnjYbrRnI8M/view?usp=sharing", "_blank", "noopener,noreferrer");
+  useEffect(() => {
+    // Check if user has already submitted their information
+    const hasSubmitted = localStorage.getItem("guideAccess");
+    if (hasSubmitted) {
+      setHasAccess(true);
+      setIsLoading(false);
+    } else {
+      // Show modal after 2 seconds
+      const timer = setTimeout(() => {
+        setShowModal(true);
+        setIsLoading(false);
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
+  const handleLeadCaptureSuccess = () => {
+    localStorage.setItem("guideAccess", "true");
+    setHasAccess(true);
+    setShowModal(false);
   };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-white dark:bg-gray-900 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
@@ -38,7 +68,9 @@ const PresentationPage = () => {
             className="flex flex-col items-center space-y-8"
           >
             {/* Gamma Presentation Embed */}
-            <div className="w-full max-w-6xl rounded-lg shadow-xl overflow-hidden bg-white dark:bg-gray-800 p-4">
+            <div
+              className={`w-full max-w-6xl rounded-lg shadow-xl overflow-hidden bg-white dark:bg-gray-800 p-4 ${!hasAccess ? "blur-sm pointer-events-none" : ""}`}
+            >
               <iframe
                 src="https://gamma.app/embed/q3cex4nt9iegyr6"
                 style={{ width: "100%", height: "600px" }}
@@ -56,8 +88,13 @@ const PresentationPage = () => {
               className="mt-8 mb-16"
             >
               <button
-                onClick={handleViewGuide}
-                className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200"
+                onClick={() =>
+                  window.open("https://drive.google.com/file/d/1vvFztYS03fYyifCl5OawqxnjYbrRnI8M/view?usp=sharing", "_blank", "noopener,noreferrer")
+                }
+                disabled={!hasAccess}
+                className={`inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200 ${
+                  !hasAccess ? "opacity-50 cursor-not-allowed" : ""
+                }`}
               >
                 <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
@@ -73,6 +110,16 @@ const PresentationPage = () => {
           </motion.div>
         </div>
       </div>
+
+      {/* Lead Capture Modal */}
+      <LeadCaptureModal
+        isOpen={showModal}
+        onClose={() => {
+          setShowModal(false);
+          navigate("/"); // Redirect to home if they close the modal
+        }}
+        onSuccess={handleLeadCaptureSuccess}
+      />
     </div>
   );
 };

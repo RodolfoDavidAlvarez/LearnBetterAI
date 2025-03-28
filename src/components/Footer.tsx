@@ -11,8 +11,8 @@ const Footer = () => {
           </div>
 
           <div className="flex flex-col items-center md:items-end">
-            <a href="mailto:contact@learnbetterai.com" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 mb-4">
-              contact@learnbetterai.com
+            <a href="mailto:ralvarez@bettersystems.ai" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 mb-4">
+              ralvarez@bettersystems.ai
             </a>
             <div className="flex space-x-6">
               <a href="/privacy" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">
