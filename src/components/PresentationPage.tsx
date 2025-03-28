@@ -2,27 +2,6 @@ import React from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
-const exampleWebsites = [
-  {
-    title: "Zone 9 Solar Solutions",
-    description: "A professional solar company website with modern design and clear value proposition.",
-    image: "/images/zone9-example.jpg",
-    features: ["Clean UI", "Clear Pricing", "Professional Branding"],
-  },
-  {
-    title: "Nurturing Nature",
-    description: "An eco-friendly plant shop with beautiful imagery and sustainable focus.",
-    image: "/images/nurturing-nature-example.jpg",
-    features: ["Nature-inspired Design", "Product Showcase", "Sustainability Focus"],
-  },
-  {
-    title: "Fun Things Apparel",
-    description: "A custom clothing store with personalization features and modern e-commerce.",
-    image: "/images/fun-things-example.jpg",
-    features: ["Custom Design Tool", "E-commerce", "Modern UI"],
-  },
-];
-
 const PresentationPage = () => {
   const navigate = useNavigate();
 
@@ -90,40 +69,6 @@ const PresentationPage = () => {
                 </svg>
                 Download Complete Guide
               </button>
-            </motion.div>
-
-            {/* Example Websites Section */}
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.6 }} className="w-full">
-              <h2 className="text-3xl font-bold text-gray-900 dark:text-white text-center mb-12">Example Websites Built with This Guide</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {exampleWebsites.map((website, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.2 * index }}
-                    className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg"
-                  >
-                    <div className="aspect-w-16 aspect-h-9">
-                      <img src={website.image} alt={website.title} className="object-cover w-full h-full" />
-                    </div>
-                    <div className="p-6">
-                      <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">{website.title}</h3>
-                      <p className="text-gray-600 dark:text-gray-300 mb-4">{website.description}</p>
-                      <div className="flex flex-wrap gap-2">
-                        {website.features.map((feature, featureIndex) => (
-                          <span
-                            key={featureIndex}
-                            className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-100 rounded-full text-sm"
-                          >
-                            {feature}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
             </motion.div>
           </motion.div>
         </div>

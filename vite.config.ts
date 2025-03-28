@@ -5,9 +5,12 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
   return {
     plugins: [react()],
+    build: {
+      outDir: "dist",
+      sourcemap: true,
+    },
     server: {
       port: 3000,
-      host: true,
       open: true,
     },
     define: {

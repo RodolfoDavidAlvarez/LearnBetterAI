@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { motion, AnimatePresence, LazyMotion, domMax } from "framer-motion";
+import { motion, LazyMotion, domMax } from "framer-motion";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -106,9 +106,7 @@ const Navbar = () => {
 
       {/* Mobile menu */}
       <div className="md:hidden">
-        <LazyMotion features={domMax}>
-          {isOpen ? <MobileMenu key="mobile-menu" /> : null}
-        </LazyMotion>
+        <LazyMotion features={domMax}>{isOpen ? <MobileMenu key="mobile-menu" /> : null}</LazyMotion>
       </div>
     </nav>
   );
