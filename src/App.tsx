@@ -8,6 +8,7 @@ import Examples from "./components/Examples";
 import DownloadForm from "./components/DownloadForm";
 import Footer from "./components/Footer";
 import PresentationPage from "./components/PresentationPage";
+import Showcase from "./components/Showcase";
 
 function LandingPage() {
   const [showExamples, setShowExamples] = useState(false);
@@ -28,6 +29,7 @@ function LandingPage() {
         <Hero />
         <WhatYoullLearn />
         <WhoItsFor />
+        <Showcase />
         {showExamples && <Examples />}
         <DownloadForm onSuccess={handleDownloadSuccess} />
       </main>
