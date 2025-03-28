@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:open": "pkill -f vite || true && vite & node scripts/open-browser.js",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
@@ -19,6 +20,7 @@
     "react-router-dom": "^6.22.0"
   },
   "devDependencies": {
+    "@tailwindcss/forms": "^0.5.10",
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.19",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
