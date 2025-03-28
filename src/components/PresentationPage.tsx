@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import LeadCaptureModal from "./LeadCaptureModal";
 
@@ -120,24 +120,22 @@ const PresentationPage = () => {
         isOpen={showModal}
         onClose={() => {
           setShowModal(false);
-          navigate("/"); // Redirect to home if they close the modal
+          navigate("/"); // Only redirect to home if they close the modal without submitting
         }}
         onSuccess={handleLeadCaptureSuccess}
       />
 
       {/* Success Notification */}
-      <AnimatePresence>
-        {showSuccess && (
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 50 }}
-            className="fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg"
-          >
-            Success! You now have access to the complete guide.
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {showSuccess && (
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 50 }}
+          className="fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg"
+        >
+          Success! You now have access to the complete guide.
+        </motion.div>
+      )}
     </div>
   );
 };
