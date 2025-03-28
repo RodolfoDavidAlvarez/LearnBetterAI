@@ -28,13 +28,6 @@ const Navbar = () => {
           Who It's For
         </a>
         <a
-          href="#examples"
-          className="block text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-base font-medium"
-          onClick={() => setIsOpen(false)}
-        >
-          Examples
-        </a>
-        <a
           href="#download-section"
           className="block bg-blue-600 text-white hover:bg-blue-700 px-3 py-2 rounded-md text-base font-medium transition-colors duration-200"
           onClick={() => setIsOpen(false)}
@@ -67,12 +60,6 @@ const Navbar = () => {
                 className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium"
               >
                 Who It's For
-              </a>
-              <a
-                href="#examples"
-                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium"
-              >
-                Examples
               </a>
               <a
                 href="#download-section"

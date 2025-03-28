@@ -4,7 +4,6 @@ import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import WhatYoullLearn from "./components/WhatYoullLearn";
 import WhoItsFor from "./components/WhoItsFor";
-import Examples from "./components/Examples";
 import Footer from "./components/Footer";
 import PresentationPage from "./components/PresentationPage";
 import ErrorBoundary from "./components/ErrorBoundary";
@@ -17,7 +16,6 @@ function LandingPage() {
         <Hero />
         <WhatYoullLearn />
         <WhoItsFor />
-        <Examples />
       </main>
       <Footer />
     </div>
