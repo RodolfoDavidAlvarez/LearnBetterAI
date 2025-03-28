@@ -5,10 +5,9 @@ import Hero from "./components/Hero";
 import WhatYoullLearn from "./components/WhatYoullLearn";
 import WhoItsFor from "./components/WhoItsFor";
 import Examples from "./components/Examples";
-import DownloadForm from "./components/DownloadForm";
 import Footer from "./components/Footer";
 import PresentationPage from "./components/PresentationPage";
-import Showcase from "./components/Showcase";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 function LandingPage() {
   const [showExamples, setShowExamples] = useState(false);
@@ -29,9 +28,7 @@ function LandingPage() {
         <Hero />
         <WhatYoullLearn />
         <WhoItsFor />
-        <Showcase />
         {showExamples && <Examples />}
-        <DownloadForm onSuccess={handleDownloadSuccess} />
       </main>
       <Footer />
     </div>
@@ -40,12 +37,14 @@ function LandingPage() {
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/presentation" element={<PresentationPage />} />
-      </Routes>
-    </Router>
+    <ErrorBoundary>
+      <Router>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/presentation" element={<PresentationPage />} />
+        </Routes>
+      </Router>
+    </ErrorBoundary>
   );
 }
 

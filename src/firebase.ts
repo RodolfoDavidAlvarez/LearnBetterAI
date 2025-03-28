@@ -15,8 +15,8 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-// Initialize Analytics
-const analytics = typeof window !== "undefined" ? getAnalytics(app) : null;
+// Initialize Analytics only in browser environment
+const analytics = typeof window !== "undefined" && process.env.NODE_ENV === "production" ? getAnalytics(app) : null;
 
 // Initialize Firestore
 const db = getFirestore(app);
@@ -24,6 +24,10 @@ const db = getFirestore(app);
 // Helper function to add a lead to Firestore
 export const addLead = async (name: string, email: string) => {
   try {
+    if (!name || !email) {
+      throw new Error("Name and email are required");
+    }
+
     const docRef = await addDoc(collection(db, "leads"), {
       name,
       email,
