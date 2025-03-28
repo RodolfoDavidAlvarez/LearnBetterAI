@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import LeadCaptureModal from "./LeadCaptureModal";
 
@@ -8,6 +8,7 @@ const PresentationPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [hasAccess, setHasAccess] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   useEffect(() => {
     // Check if user has already submitted their information
@@ -29,6 +30,9 @@ const PresentationPage = () => {
     localStorage.setItem("guideAccess", "true");
     setHasAccess(true);
     setShowModal(false);
+    setShowSuccess(true);
+    // Hide success message after 3 seconds
+    setTimeout(() => setShowSuccess(false), 3000);
   };
 
   if (isLoading) {
@@ -120,6 +124,20 @@ const PresentationPage = () => {
         }}
         onSuccess={handleLeadCaptureSuccess}
       />
+
+      {/* Success Notification */}
+      <AnimatePresence>
+        {showSuccess && (
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 50 }}
+            className="fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg"
+          >
+            Success! You now have access to the complete guide.
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
