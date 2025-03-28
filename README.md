@@ -1,129 +1,83 @@
-# AI Website Builder Landing Page
+# LearnBetterAI Landing Page
 
-This is a modern, minimalistic landing page for the AI platform "Learn Better AI", built with React and modern web technologies.
+A modern, responsive landing page for LearnBetterAI.com, built with React, TypeScript, and Tailwind CSS.
 
-## Instructions for AI Assistant
+## Features
 
-When working with this project, the AI assistant should:
+- Modern, responsive design
+- Dark mode support
+- Animated components with Framer Motion
+- Firebase integration for lead generation
+- Mobile-friendly navigation
+- Optimized performance
 
-1. **Modern Development Stack**
+## Prerequisites
 
-   - Use React with TypeScript for type safety
-   - Implement modern React features (hooks, functional components)
-   - Use Vite as the build tool for fast development
-   - Include Tailwind CSS for styling
-   - Use modern React libraries:
-     - React Router for navigation
-     - Framer Motion for animations
-     - React Query for data fetching
-     - React Hook Form for forms
-   - Follow React best practices and patterns
+- Node.js (v14 or higher)
+- npm (v6 or higher)
 
-2. **Browser Preview**
+## Getting Started
 
-   - After ANY modification to the website files
-   - Start the development server with:
-     ```bash
-     npm run dev
-     ```
-   - ALWAYS open the browser automatically using:
-     - `open http://localhost:5173` (for macOS)
-     - `start http://localhost:5173` (for Windows)
-     - `xdg-open http://localhost:5173` (for Linux)
+1. Clone the repository:
 
-3. **Code Organization**
+```bash
+git clone https://github.com/yourusername/learnbetterai-landing.git
+cd learnbetterai-landing
+```
 
-   - Follow React project structure:
-     ```
-     src/
-     ├── components/     # Reusable components
-     ├── pages/         # Page components
-     ├── hooks/         # Custom hooks
-     ├── utils/         # Utility functions
-     ├── assets/        # Static assets
-     ├── styles/        # Global styles
-     └── types/         # TypeScript types
-     ```
-   - Use proper component naming (PascalCase)
-   - Implement proper TypeScript types
-   - Follow React component composition patterns
+2. Install dependencies:
 
-4. **Design Principles**
+```bash
+npm install
+```
 
-   - Use Tailwind CSS for responsive design
-   - Implement dark mode support
-   - Use CSS variables for theming
-   - Follow modern design trends
-   - Ensure accessibility (ARIA, semantic HTML)
-   - Use modern animations with Framer Motion
+3. Start the development server:
 
-5. **Performance**
+```bash
+npm start
+```
 
-   - Implement code splitting
-   - Use React.lazy for route-based splitting
-   - Optimize images with next/image
-   - Implement proper caching strategies
-   - Use React.memo when beneficial
-   - Monitor and optimize bundle size
+The application will open in your default browser at `http://localhost:3000`.
 
-6. **Development Workflow**
-   - Use ESLint and Prettier for code quality
-   - Implement proper Git workflow
-   - Use conventional commits
-   - Include proper documentation
-   - Write unit tests for components
-   - Use Storybook for component documentation
+## Building for Production
 
-## Local Development
+To create a production build:
 
-1. Install dependencies:
+```bash
+npm run build
+```
 
-   ```bash
-   npm install
-   ```
-
-2. Start development server:
-
-   ```bash
-   npm run dev
-   ```
-
-3. Build for production:
-   ```bash
-   npm run build
-   ```
+This will create an optimized production build in the `build` directory.
 
 ## Project Structure
 
 ```
-.
-├── src/
-│   ├── components/     # Reusable components
-│   ├── pages/         # Page components
-│   ├── hooks/         # Custom hooks
-│   ├── utils/         # Utility functions
-│   ├── assets/        # Static assets
-│   ├── styles/        # Global styles
-│   └── types/         # TypeScript types
-├── public/            # Static files
-├── index.html         # Entry HTML file
-├── package.json       # Dependencies and scripts
-├── tsconfig.json      # TypeScript configuration
-├── vite.config.ts     # Vite configuration
-├── tailwind.config.js # Tailwind configuration
-└── README.md          # This file
+src/
+  ├── components/     # React components
+  ├── firebase.ts    # Firebase configuration
+  ├── App.tsx        # Main application component
+  └── index.tsx      # Application entry point
+public/
+  └── images/        # Static images
 ```
 
-## Dependencies
+## Technologies Used
 
-- React 18+
+- React
 - TypeScript
-- Vite
 - Tailwind CSS
-- React Router
 - Framer Motion
-- React Query
-- React Hook Form
-- ESLint
-- Prettier
-- Vitest (for testing)
+- Firebase
+- React Router DOM
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.

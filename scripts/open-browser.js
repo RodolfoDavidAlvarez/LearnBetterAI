@@ -1,7 +1,31 @@
-import { exec } from "node:child_process";
+const { exec } = require("child_process");
+const os = require("os");
 
-// Wait for the dev server to start
+const platform = os.platform();
+
+function openBrowser(url) {
+  let command;
+
+  switch (platform) {
+    case "darwin": // macOS
+      command = `open ${url}`;
+      break;
+    case "win32": // Windows
+      command = `start ${url}`;
+      break;
+    default: // Linux and others
+      command = `xdg-open ${url}`;
+      break;
+  }
+
+  exec(command, (error) => {
+    if (error) {
+      console.error("Error opening browser:", error);
+    }
+  });
+}
+
+// Wait for 2 seconds to ensure the development server is running
 setTimeout(() => {
-  const command = process.platform === "darwin" ? "open" : process.platform === "win32" ? "start" : "xdg-open";
-  exec(`${command} http://localhost:5173`);
-}, 3000);
+  openBrowser("http://localhost:3000");
+}, 2000);
