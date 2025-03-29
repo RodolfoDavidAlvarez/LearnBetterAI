@@ -1,26 +1,37 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { RocketLaunchIcon, CommandLineIcon, PaintBrushIcon, GlobeAltIcon, CurrencyDollarIcon, ServerIcon } from "@heroicons/react/24/outline";
 
 const learningPoints = [
   {
-    title: "Build Complete Websites",
-    description: "Learn how to create fully functional, AI-powered websites from scratch using modern tools and techniques.",
-    icon: "🌐",
+    title: "Zero to AI Web App",
+    description: "How to go from zero to a fully functional AI web app",
+    icon: RocketLaunchIcon,
   },
   {
-    title: "Modern Design & Automation",
-    description: "Master the art of creating beautiful, responsive designs and implementing powerful automation features.",
-    icon: "🎨",
+    title: "Step-by-Step Tools",
+    description: "Which tools to use and how to use them—step-by-step",
+    icon: CommandLineIcon,
   },
   {
-    title: "Deploy & Launch",
-    description: "Get step-by-step guidance on deploying your first app and making it publicly accessible.",
-    icon: "🚀",
+    title: "Clean & Modern Design",
+    description: "Tips for making your site look clean, modern, and professional",
+    icon: PaintBrushIcon,
   },
   {
-    title: "AI Workflows",
-    description: "Discover how to leverage the latest AI tools to streamline your development process.",
-    icon: "🤖",
+    title: "Publish & Share",
+    description: "How to publish your app and share it with the world",
+    icon: GlobeAltIcon,
+  },
+  {
+    title: "AI Platform Pricing",
+    description: "Best AI platforms to use, with pricing breakdowns",
+    icon: CurrencyDollarIcon,
+  },
+  {
+    title: "Domain Connection",
+    description: "How to connect your website to a real domain (e.g., mybrandstudio.com)",
+    icon: ServerIcon,
   },
 ];
 
@@ -38,9 +49,18 @@ const WhatYoullLearn = () => {
           >
             What You'll Learn
           </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="mt-4 text-lg text-gray-600 dark:text-gray-300"
+          >
+            This guide was made for real beginners. You don't need any background in tech.
+          </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {learningPoints.map((point, index) => (
             <motion.div
               key={index}
@@ -50,7 +70,9 @@ const WhatYoullLearn = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="bg-white dark:bg-gray-700 rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow duration-300"
             >
-              <div className="text-4xl mb-4">{point.icon}</div>
+              <div className="text-gray-900 dark:text-white mb-4">
+                <point.icon className="h-8 w-8" />
+              </div>
               <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">{point.title}</h3>
               <p className="text-gray-600 dark:text-gray-300">{point.description}</p>
             </motion.div>

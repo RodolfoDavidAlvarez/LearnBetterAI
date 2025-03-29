@@ -46,6 +46,23 @@ const websites = [
 const Home: React.FC = () => {
   return (
     <div className="min-h-screen">
+      {/* Fixed Download Button */}
+      <div className="fixed top-4 right-4 z-50">
+        <a
+          href="/register-download"
+          className="btn bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-lg flex items-center gap-2 shadow-lg"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path
+              fillRule="evenodd"
+              d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+              clipRule="evenodd"
+            />
+          </svg>
+          Download Guide
+        </a>
+      </div>
+
       {/* Hero Section */}
       <section className="relative min-h-screen flex flex-col items-center bg-gradient-to-br from-primary-50 to-white dark:from-gray-900 dark:to-gray-800 overflow-hidden">
         {/* Background decoration */}
@@ -80,20 +97,41 @@ const Home: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.5 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center"
+              className="flex flex-col items-center gap-8 mt-12"
             >
-              <a href="/register-download" className="btn">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+              <a href="/register-download" className="flex flex-col items-center gap-2 group">
+                <span className="text-xl font-semibold text-primary-600 dark:text-primary-400 group-hover:text-primary-700 dark:group-hover:text-primary-300">
+                  Download Guide Here
+                </span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-12 w-12 animate-bounce text-primary-600 dark:text-primary-400"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
                   <path
                     fillRule="evenodd"
-                    d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
                     clipRule="evenodd"
                   />
                 </svg>
-                Download Guide
               </a>
-              <a href="#features" className="btn-secondary">
-                See Website Created in Less Than 10 Minutes
+              <a href="#features" className="flex flex-col items-center gap-2 group">
+                <span className="text-xl font-semibold text-primary-600 dark:text-primary-400 group-hover:text-primary-700 dark:group-hover:text-primary-300">
+                  Or Watch Presentation Here
+                </span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-12 w-12 animate-bounce text-primary-600 dark:text-primary-400"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  />
+                </svg>
               </a>
             </motion.div>
           </motion.div>

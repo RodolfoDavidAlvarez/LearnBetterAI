@@ -34,6 +34,40 @@ const RegisterForm: React.FC = () => {
         timestamp: new Date(),
       });
 
+      // Prepare the data to send
+      const webhookData = {
+        ...formData,
+        timestamp: new Date().toISOString(),
+        source: "website_form",
+        response: "good",
+      };
+
+      console.log("Preparing to send data to webhook:", webhookData);
+
+      // Send to Make.com webhook with CORS mode
+      const webhookResponse = await fetch("https://hook.us1.make.com/j65k30pgwmjtbcipgqr99ny5qr7bmxkd", {
+        method: "POST",
+        mode: "cors", // Enable CORS
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(webhookData),
+      });
+
+      console.log("Webhook response status:", webhookResponse.status);
+      console.log("Webhook response headers:", Object.fromEntries(webhookResponse.headers.entries()));
+
+      const responseData = await webhookResponse.text();
+      console.log("Webhook response data:", responseData);
+
+      if (!webhookResponse.ok) {
+        throw new Error(`Webhook request failed with status ${webhookResponse.status}`);
+      }
+
+      // Log successful submission
+      console.log("Successfully sent data to webhook");
+
       setSuccess(true);
 
       // Redirect to download page after 2 seconds
@@ -42,7 +76,12 @@ const RegisterForm: React.FC = () => {
       }, 2000);
     } catch (err: any) {
       console.error("Error during form submission: ", err);
-      setError("An error occurred while processing your request");
+      console.error("Error details:", {
+        message: err.message,
+        stack: err.stack,
+        name: err.name,
+      });
+      setError(`An error occurred while processing your request: ${err.message}`);
     } finally {
       setLoading(false);
     }

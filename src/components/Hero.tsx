@@ -38,25 +38,26 @@ const Hero = () => {
   };
 
   return (
-    <div className="relative bg-white dark:bg-gray-900 overflow-hidden pt-16">
+    <div className="relative bg-white dark:bg-gray-900 overflow-hidden">
       <div className="max-w-7xl mx-auto">
-        <div className="relative z-10 pb-8 bg-white dark:bg-gray-900 sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
-          <main className="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
-            <div className="sm:text-center lg:text-left">
-              <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white sm:text-5xl md:text-6xl">
-                <span className="block">Build Your Dream Website</span>
-                <span className="block text-blue-600">With AI-Powered Tools</span>
+        <div className="flex flex-col lg:flex-row min-h-[80vh] py-16">
+          {/* Left Column - Text Content */}
+          <div className="w-full lg:w-1/2 flex items-center justify-center p-4 sm:p-6 lg:p-8">
+            <div className="max-w-xl w-full text-center lg:text-left">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl tracking-tight font-extrabold text-gray-900 dark:text-white">
+                <span className="block">Want to Build a Website</span>
+                <span className="block text-blue-600">With AI—Fast and Easy?</span>
+                <span className="block text-blue-600">Here's How.</span>
               </h1>
-              <p className="mt-3 text-base text-gray-500 dark:text-gray-400 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                Learn how to create professional websites using cutting-edge AI tools. No coding experience required. Get started today with our
-                comprehensive guide.
+              <p className="mt-4 text-base sm:text-lg text-gray-500 dark:text-gray-400">
+                Launch your own website in minutes with AI. No code. No stress. Just a clear, simple guide to get you started today.
               </p>
-              <div className="mt-8 flex flex-col sm:flex-row sm:justify-center lg:justify-start gap-3">
+              <div className="mt-6 flex justify-center lg:justify-start">
                 <Link
                   to="/presentation"
-                  className="w-full sm:w-auto px-8 py-4 text-lg font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-lg flex items-center justify-center transition-all duration-300 transform hover:scale-105 animate-pulse"
+                  className="inline-flex items-center px-6 py-3 text-base sm:text-lg font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -68,75 +69,73 @@ const Hero = () => {
                 </Link>
               </div>
             </div>
-          </main>
-        </div>
-      </div>
-      <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-        <div className="h-full bg-gray-50 dark:bg-gray-800 flex items-center justify-center">
-          <div className="w-full max-w-4xl px-4">
-            <div className="relative">
+          </div>
+
+          {/* Right Column - Website Showcase */}
+          <div className="w-full lg:w-1/2 bg-gray-50 dark:bg-gray-800 flex items-center justify-center p-4 sm:p-6 lg:p-8">
+            <div className="relative w-full max-w-lg">
               {/* Navigation Buttons */}
               <button
                 onClick={prevWebsite}
-                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-20 bg-white dark:bg-gray-700 rounded-full p-2 shadow-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
+                className="absolute left-2 top-1/2 -translate-y-1/2 z-20 bg-white dark:bg-gray-700 rounded-full p-2 shadow-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
               >
-                <svg className="w-6 h-6 text-gray-600 dark:text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="w-5 h-5 text-gray-600 dark:text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
               </button>
               <button
                 onClick={nextWebsite}
-                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-20 bg-white dark:bg-gray-700 rounded-full p-2 shadow-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
+                className="absolute right-2 top-1/2 -translate-y-1/2 z-20 bg-white dark:bg-gray-700 rounded-full p-2 shadow-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
               >
-                <svg className="w-6 h-6 text-gray-600 dark:text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="w-5 h-5 text-gray-600 dark:text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </button>
 
               {/* Computer Frame */}
-              <div className="relative bg-gray-800 rounded-lg p-4 shadow-2xl">
+              <div className="relative bg-gray-800 rounded-lg p-3 shadow-2xl mx-auto">
                 {/* Screen Bezel */}
                 <div className="relative bg-gray-900 rounded-lg overflow-hidden">
                   {/* Browser Chrome */}
-                  <div className="bg-gray-700 h-10 flex items-center px-4">
-                    <div className="flex space-x-2">
-                      <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                      <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                      <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                  <div className="bg-gray-700 h-8 flex items-center px-3">
+                    <div className="flex space-x-1.5">
+                      <div className="w-2.5 h-2.5 rounded-full bg-red-500"></div>
+                      <div className="w-2.5 h-2.5 rounded-full bg-yellow-500"></div>
+                      <div className="w-2.5 h-2.5 rounded-full bg-green-500"></div>
                     </div>
-                    <div className="ml-4 flex-1 text-center text-sm text-gray-400 truncate">{websites[currentIndex].title}</div>
+                    <div className="ml-3 flex-1 text-center text-xs text-gray-400 truncate">{websites[currentIndex].title}</div>
                   </div>
                   {/* Website Preview */}
-                  <div className="aspect-w-16 aspect-h-9">
+                  <div className="relative w-full" style={{ paddingBottom: "60%" }}>
                     <motion.div
                       key={currentIndex}
                       initial={{ opacity: 0, x: 100 }}
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -100 }}
                       transition={{ duration: 0.3 }}
-                      className="w-full h-full"
+                      className="absolute inset-0"
                     >
-                      <img src={websites[currentIndex].image} alt={websites[currentIndex].title} className="object-cover w-full h-full" />
+                      <img src={websites[currentIndex].image} alt={websites[currentIndex].title} className="w-full h-full object-cover" />
                     </motion.div>
                   </div>
                 </div>
                 {/* Computer Stand */}
-                <div className="h-6 bg-gray-700 rounded-b-lg mt-4"></div>
+                <div className="h-6 bg-gray-700 rounded-b-lg mt-3 mx-auto w-1/4"></div>
               </div>
 
               {/* Website Info */}
               <div className="mt-6 text-center">
-                <h3 className="text-2xl font-semibold text-gray-900 dark:text-white">{websites[currentIndex].title}</h3>
-                <p className="mt-2 text-lg text-gray-600 dark:text-gray-400">{websites[currentIndex].description}</p>
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{websites[currentIndex].title}</h3>
+                <p className="mt-2 text-sm sm:text-base text-gray-600 dark:text-gray-400">{websites[currentIndex].description}</p>
               </div>
 
               {/* Dots Navigation */}
-              <div className="flex justify-center mt-6 space-x-2">
+              <div className="flex justify-center mt-4 space-x-2 mb-8">
                 {websites.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => setCurrentIndex(index)}
-                    className={`w-3 h-3 rounded-full transition-colors ${
+                    className={`w-2.5 h-2.5 rounded-full transition-colors ${
                       index === currentIndex ? "bg-blue-600" : "bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500"
                     }`}
                   />
