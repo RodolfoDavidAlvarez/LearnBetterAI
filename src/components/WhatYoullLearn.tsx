@@ -4,8 +4,8 @@ import { RocketLaunchIcon, CommandLineIcon, PaintBrushIcon, GlobeAltIcon, Curren
 
 const learningPoints = [
   {
-    title: "Zero to AI Web App",
-    description: "How to go from zero to a fully functional AI web app",
+    title: "From Zero to Full Website",
+    description: "Learn how to build a complete, professional website from scratch - even if you're a beginner",
     icon: RocketLaunchIcon,
   },
   {
