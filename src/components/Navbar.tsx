@@ -29,11 +29,11 @@ const Navbar = () => {
           Who It's For
         </a>
         <Link
-          to="/presentation"
+          to="/learn"
           className="block bg-blue-600 text-white hover:bg-blue-700 px-3 py-2 rounded-md text-base font-medium transition-colors duration-200"
           onClick={() => setIsOpen(false)}
         >
-          Get Free Guide
+          Learn AI
         </Link>
       </div>
     </motion.div>
@@ -63,10 +63,10 @@ const Navbar = () => {
                 Who It's For
               </a>
               <Link
-                to="/presentation"
+                to="/learn"
                 className="bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200"
               >
-                Get Free Guide
+                Learn AI
               </Link>
             </div>
           </div>

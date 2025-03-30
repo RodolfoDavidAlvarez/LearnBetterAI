@@ -5,34 +5,48 @@ import Hero from "./components/Hero";
 import WhatYoullLearn from "./components/WhatYoullLearn";
 import WhoItsFor from "./components/WhoItsFor";
 import Footer from "./components/Footer";
-import PresentationPage from "./components/PresentationPage";
 import ErrorBoundary from "./components/ErrorBoundary";
+import LearnAI from "./pages/LearnAI";
+import Login from "./pages/admin/Login";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import ArticleView from "./components/ArticleView";
+import AdminRoute from "./pages/admin/AdminRoute";
 
-function LandingPage() {
-  return (
-    <div className="min-h-screen bg-white dark:bg-gray-900">
-      <Navbar />
-      <main>
-        <Hero />
-        <WhatYoullLearn />
-        <WhoItsFor />
-      </main>
-      <Footer />
-    </div>
-  );
-}
+const LandingPage: React.FC = () => (
+  <>
+    <Hero />
+    <WhatYoullLearn />
+    <WhoItsFor />
+  </>
+);
 
-function App() {
+const App: React.FC = () => {
   return (
     <ErrorBoundary>
       <Router>
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/presentation" element={<PresentationPage />} />
-        </Routes>
+        <div className="min-h-screen bg-white dark:bg-gray-900">
+          <Navbar />
+          <main className="flex-grow pt-16">
+            <Routes>
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/learn" element={<LearnAI />} />
+              <Route path="/article/:id" element={<ArticleView />} />
+              <Route path="/admin/login" element={<Login />} />
+              <Route
+                path="/admin/*"
+                element={
+                  <AdminRoute>
+                    <AdminDashboard />
+                  </AdminRoute>
+                }
+              />
+            </Routes>
+          </main>
+          <Footer />
+        </div>
       </Router>
     </ErrorBoundary>
   );
-}
+};
 
 export default App;
