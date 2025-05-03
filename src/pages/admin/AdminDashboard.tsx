@@ -4,6 +4,8 @@ import { collection, getDocs, addDoc, deleteDoc, doc, updateDoc } from "firebase
 import { db } from "../../lib/firebase";
 import { authService } from "../../services/authService";
 import ImageUploader from "../../components/ImageUploader";
+import RichTextEditor from "../../components/RichTextEditor";
+import { generateBlogContent } from "../../services/openaiService";
 
 interface Article {
   id: string;
@@ -229,6 +231,9 @@ const ArticleEditor: React.FC<{ onSave: () => void }> = ({ onSave }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [preview, setPreview] = useState(false);
+  const [aiPrompt, setAiPrompt] = useState("");
+  const [aiLoading, setAiLoading] = useState(false);
+  const [aiError, setAiError] = useState("");
 
   const handleImagesUploaded = (urls: string[]) => {
     console.log("Images uploaded successfully:", urls);
@@ -236,6 +241,19 @@ const ArticleEditor: React.FC<{ onSave: () => void }> = ({ onSave }) => {
     // Set the first uploaded image as thumbnail if no thumbnail is set
     if (!thumbnail && urls.length > 0) {
       setThumbnail(urls[0]);
+    }
+  };
+
+  const handleAIGenerate = async () => {
+    setAiLoading(true);
+    setAiError("");
+    try {
+      const html = await generateBlogContent({ title, category, prompt: aiPrompt });
+      setContent(html);
+    } catch (err) {
+      setAiError(err instanceof Error ? err.message : "Failed to generate content with AI.");
+    } finally {
+      setAiLoading(false);
     }
   };
 
@@ -424,16 +442,30 @@ const ArticleEditor: React.FC<{ onSave: () => void }> = ({ onSave }) => {
           </div>
 
           <div>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">AI Content Prompt (optional)</label>
+            <input
+              type="text"
+              value={aiPrompt}
+              onChange={(e) => setAiPrompt(e.target.value)}
+              className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
+              placeholder="e.g. Focus on practical tips for beginners"
+            />
+            <button
+              type="button"
+              onClick={handleAIGenerate}
+              disabled={aiLoading || !title || !category}
+              className="mt-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-md hover:from-blue-700 hover:to-blue-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {aiLoading ? "Generating..." : "Generate with AI"}
+            </button>
+            {aiError && <div className="mt-2 text-red-600 text-sm">{aiError}</div>}
+          </div>
+
+          <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
               Content <span className="text-red-500">*</span>
             </label>
-            <textarea
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              rows={15}
-              className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
-              required
-            />
+            <RichTextEditor content={content} onChange={setContent} />
           </div>
 
           <div className="flex justify-end space-x-4">
@@ -447,6 +479,7 @@ const ArticleEditor: React.FC<{ onSave: () => void }> = ({ onSave }) => {
                 setThumbnail("");
                 setImages([]);
                 setStatus("draft");
+                setAiPrompt("");
               }}
               className="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
             >
