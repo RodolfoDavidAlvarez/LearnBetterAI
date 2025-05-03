@@ -21,29 +21,55 @@ const DEV_ADMIN = {
 };
 
 export const authService = {
+  // Regular user authentication
   async login(email: string, password: string): Promise<User> {
-    // In development, always allow admin login
-    if (process.env.NODE_ENV !== "production") {
-      const userCredential = await signInWithEmailAndPassword(auth, DEV_ADMIN.email, DEV_ADMIN.password).catch(async () => {
-        // If admin doesn't exist, create it
-        const newUser = await createUserWithEmailAndPassword(auth, DEV_ADMIN.email, DEV_ADMIN.password);
-
-        // Create admin document in Firestore
-        await setDoc(doc(db, "system", "admin"), {
-          email: DEV_ADMIN.email,
-          createdAt: new Date().toISOString(),
-          userId: newUser.user.uid,
-          isDevelopment: true,
-        });
-
-        return newUser;
-      });
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
       return userCredential.user;
+    } catch (error) {
+      console.error("Login error:", error);
+      throw error;
     }
+  },
 
-    // In production, use normal login
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    return userCredential.user;
+  // Admin-specific authentication
+  async adminLogin(email: string, password: string): Promise<User> {
+    try {
+      // In development, allow admin login with dev credentials
+      if (process.env.NODE_ENV !== "production") {
+        if (email === DEV_ADMIN.email && password === DEV_ADMIN.password) {
+          const userCredential = await signInWithEmailAndPassword(auth, DEV_ADMIN.email, DEV_ADMIN.password).catch(async (error) => {
+            console.log("Admin login failed, creating admin account:", error);
+            // If admin doesn't exist, create it
+            const newUser = await createUserWithEmailAndPassword(auth, DEV_ADMIN.email, DEV_ADMIN.password);
+
+            // Create admin document in Firestore
+            await setDoc(doc(db, "system", "admin"), {
+              email: DEV_ADMIN.email,
+              createdAt: new Date().toISOString(),
+              userId: newUser.user.uid,
+              isDevelopment: true,
+            });
+
+            return newUser;
+          });
+          return userCredential.user;
+        }
+      }
+
+      // In production, verify admin credentials
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const isAdmin = await this.isAdmin(userCredential.user);
+
+      if (!isAdmin) {
+        throw new Error("Not authorized as admin");
+      }
+
+      return userCredential.user;
+    } catch (error) {
+      console.error("Admin login error:", error);
+      throw error;
+    }
   },
 
   async logout(): Promise<void> {
@@ -64,9 +90,14 @@ export const authService = {
   },
 
   async createUser(email: string, password: string): Promise<User> {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    await sendEmailVerification(userCredential.user);
-    return userCredential.user;
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      await sendEmailVerification(userCredential.user);
+      return userCredential.user;
+    } catch (error) {
+      console.error("Create user error:", error);
+      throw error;
+    }
   },
 
   async sendPasswordResetEmail(email: string): Promise<void> {

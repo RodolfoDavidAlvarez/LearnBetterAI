@@ -17,6 +17,17 @@
   .container {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
+
+  /* Placeholder image styles */
+  .placeholder-image {
+    @apply bg-gray-100 dark:bg-gray-700 flex items-center justify-center;
+    min-height: 200px;
+  }
+
+  .placeholder-image::before {
+    content: "";
+    @apply absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800;
+  }
 }
 
 /* Custom scrollbar */
@@ -62,4 +73,27 @@
 
 .animate-blob {
   animation: blob 7s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+}
+
+/* Article card image aspect ratio */
+.aspect-video {
+  aspect-ratio: 16 / 9;
+}
+
+/* Image loading skeleton */
+.skeleton {
+  @apply animate-pulse bg-gray-200 dark:bg-gray-700;
 }

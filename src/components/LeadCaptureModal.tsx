@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { addLead } from "../firebase";
+import { addLead } from "../lib/firebase";
 
 interface LeadCaptureModalProps {
   isOpen: boolean;

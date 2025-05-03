@@ -3,6 +3,7 @@ import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import { collection, getDocs, addDoc, deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../lib/firebase";
 import { authService } from "../../services/authService";
+import ImageUploader from "../../components/ImageUploader";
 
 interface Article {
   id: string;
@@ -52,14 +53,14 @@ const AdminDashboard: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+      <div className="min-h-screen pt-16 bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
         <div className="text-xl text-gray-600 dark:text-gray-300">Loading...</div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-800">
+    <div className="min-h-screen pt-16 bg-gray-100 dark:bg-gray-800">
       <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div className="px-4 py-6 sm:px-0">
           <div className="flex justify-between items-center mb-6">
@@ -223,10 +224,20 @@ const ArticleEditor: React.FC<{ onSave: () => void }> = ({ onSave }) => {
   const [category, setCategory] = useState("");
   const [readTime, setReadTime] = useState("");
   const [thumbnail, setThumbnail] = useState("");
+  const [images, setImages] = useState<string[]>([]);
   const [status, setStatus] = useState<"draft" | "published">("draft");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [preview, setPreview] = useState(false);
+
+  const handleImagesUploaded = (urls: string[]) => {
+    console.log("Images uploaded successfully:", urls);
+    setImages((prev) => [...prev, ...urls]);
+    // Set the first uploaded image as thumbnail if no thumbnail is set
+    if (!thumbnail && urls.length > 0) {
+      setThumbnail(urls[0]);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -238,15 +249,52 @@ const ArticleEditor: React.FC<{ onSave: () => void }> = ({ onSave }) => {
         throw new Error("Please fill in all required fields");
       }
 
-      await addDoc(collection(db, "articles"), {
+      console.log("Submitting article with images:", images);
+
+      const articleData = {
         title: title.trim(),
         content: content.trim(),
         category: category.trim(),
         readTime: readTime.trim(),
         thumbnail: thumbnail.trim(),
+        images: images,
         status: status,
         createdAt: new Date().toISOString(),
-      });
+      };
+
+      console.log("Article data to be saved:", articleData);
+
+      // Add to Firestore
+      const docRef = await addDoc(collection(db, "articles"), articleData);
+      console.log("Article saved to Firestore with ID:", docRef.id);
+
+      // If the article is published, send webhook notification
+      if (status === "published") {
+        const webhookData = {
+          ...articleData,
+          id: docRef.id,
+          type: "new_article",
+          timestamp: new Date().toISOString(),
+          articleUrl: `${window.location.origin}/article/${docRef.id}`,
+        };
+
+        console.log("Sending webhook data:", webhookData);
+
+        const webhookResponse = await fetch("https://hook.us1.make.com/j65k30pgwmjtbcipgqr99ny5qr7bmxkd", {
+          method: "POST",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify(webhookData),
+        });
+
+        if (!webhookResponse.ok) {
+          console.error("Webhook notification failed:", await webhookResponse.text());
+          // Don't throw error here as the article was still created successfully
+        }
+      }
 
       // Reset form
       setTitle("");
@@ -254,11 +302,13 @@ const ArticleEditor: React.FC<{ onSave: () => void }> = ({ onSave }) => {
       setCategory("");
       setReadTime("");
       setThumbnail("");
+      setImages([]);
       setStatus("draft");
       onSave();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Error creating article");
+      const errorMessage = err instanceof Error ? err.message : "Error creating article";
       console.error("Error creating article:", err);
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -291,6 +341,13 @@ const ArticleEditor: React.FC<{ onSave: () => void }> = ({ onSave }) => {
               {category || "Uncategorized"}
             </span>
           </div>
+          {images.length > 0 && (
+            <div className={`grid gap-4 my-6 ${images.length === 1 ? "grid-cols-1" : images.length === 2 ? "grid-cols-2" : "grid-cols-3"}`}>
+              {images.map((url, index) => (
+                <img key={url} src={url} alt={`Article image ${index + 1}`} className="w-full h-48 object-cover rounded-lg" />
+              ))}
+            </div>
+          )}
           <div className="mt-6">{content || "No content yet"}</div>
         </div>
       ) : (
@@ -347,6 +404,11 @@ const ArticleEditor: React.FC<{ onSave: () => void }> = ({ onSave }) => {
           </div>
 
           <div>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Article Images</label>
+            <ImageUploader onImagesUploaded={handleImagesUploaded} maxFiles={3} className="mt-1" />
+          </div>
+
+          <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
               Status <span className="text-red-500">*</span>
             </label>
@@ -383,6 +445,7 @@ const ArticleEditor: React.FC<{ onSave: () => void }> = ({ onSave }) => {
                 setCategory("");
                 setReadTime("");
                 setThumbnail("");
+                setImages([]);
                 setStatus("draft");
               }}
               className="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"

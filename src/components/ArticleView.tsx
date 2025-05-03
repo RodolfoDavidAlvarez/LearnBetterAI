@@ -10,6 +10,7 @@ interface Article {
   category: string;
   readTime: string;
   thumbnail: string;
+  images: string[];
   createdAt: string;
   status: "draft" | "published";
 }
@@ -103,10 +104,21 @@ const ArticleView: React.FC = () => {
           <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">{article.title}</h1>
         </header>
 
-        {/* Article Thumbnail */}
-        {article.thumbnail && (
-          <div className="mb-8 rounded-xl overflow-hidden shadow-lg">
-            <img src={article.thumbnail} alt={article.title} className="w-full h-[400px] object-cover" />
+        {/* Article Images */}
+        {article.images && article.images.length > 0 && (
+          <div
+            className={`grid gap-6 mb-8 ${article.images.length === 1 ? "grid-cols-1" : article.images.length === 2 ? "grid-cols-2" : "grid-cols-3"}`}
+          >
+            {article.images.map((url, index) => (
+              <div key={url} className="relative group">
+                <img
+                  src={url}
+                  alt={`Article image ${index + 1}`}
+                  className="w-full h-64 object-cover rounded-lg shadow-lg transition-transform duration-300 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity duration-300 rounded-lg" />
+              </div>
+            ))}
           </div>
         )}
 
@@ -118,8 +130,17 @@ const ArticleView: React.FC = () => {
             prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-a:no-underline hover:prose-a:underline
             prose-strong:text-gray-900 dark:prose-strong:text-white
             prose-ul:list-disc prose-ol:list-decimal
-            prose-img:rounded-xl prose-img:shadow-lg"
-          dangerouslySetInnerHTML={{ __html: article.content }}
+            prose-img:rounded-xl prose-img:shadow-lg
+            prose-pre:bg-gray-800 dark:prose-pre:bg-gray-700
+            prose-code:text-blue-600 dark:prose-code:text-blue-400"
+          dangerouslySetInnerHTML={{
+            __html: article.content
+              .replace(/&lt;/g, "<")
+              .replace(/&gt;/g, ">")
+              .replace(/&quot;/g, '"')
+              .replace(/&#39;/g, "'")
+              .replace(/&amp;/g, "&"),
+          }}
         />
       </div>
     </div>
